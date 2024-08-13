@@ -112,6 +112,7 @@ console.log(this.board.nativeElement.innerHTML)
 const elements = this.board.nativeElement.querySelectorAll('.row'); // Select all elements with the class 'row'
 
 elements.forEach((element: HTMLElement) => {
+  if(element.children.length==0)
   this.renderer.setStyle(element, 'height', '100px');
 });
     event.preventDefault();
@@ -122,6 +123,7 @@ elements.forEach((element: HTMLElement) => {
     const elements = this.board.nativeElement.querySelectorAll('.row'); // Select all elements with the class 'row'
 
     elements.forEach((element: HTMLElement) => {
+      if(element.children.length==0)
       this.renderer.setStyle(element, 'height', '100px');
     });
     event.preventDefault();
