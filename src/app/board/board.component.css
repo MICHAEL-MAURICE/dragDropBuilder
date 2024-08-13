@@ -1,0 +1,11 @@
+.board {
+    position: fixed;
+    left: 20%;
+    right: 25%;
+    top: 56px;
+    bottom: 0;
+    overflow-y: auto;
+    background-color: #f8f9fa;
+    padding: 20px;
+  }
+  

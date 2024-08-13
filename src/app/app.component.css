@@ -1,0 +1,237 @@
+.toolbox, .board, .properties {
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.toolbox {
+    width: 20%;
+    height: 100vh;
+    overflow-y: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+.row, .col, p, img, video {
+    transition: transform 0.2s ease;
+  }
+  
+  .row:hover, .col:hover, p:hover, img:hover, video:hover {
+   transform: scale(1.05);
+   
+    cursor: pointer;
+  }
+
+.board {
+    position: fixed;
+    left: 20%;
+    right: 25%;
+    top: 0;
+    bottom: 0;
+    overflow-y: auto;
+}
+
+.properties {
+    width: 25%;
+    height: 100vh;
+    overflow-y: auto;
+    position: fixed;
+    right: 0;
+    top: 0;
+}
+
+.draggable {
+    width: 100%;
+    cursor: grab;
+    margin-bottom: 5px;
+    text-align: center;
+}
+/* General styling for the board */
+.board {
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Styling for rows and columns */
+.row {
+    background-color: #e9ecef;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.col {
+    background-color: #ffffff;
+    border: 2px dashed #dee2e6;
+    padding: 10px;
+    margin-top: 5px;
+    margin-right: 10px; /* Adds spacing between columns */
+}
+
+/* Responsive columns inside a row */
+.row > .col {
+   
+    flex: 1; /* Flex grow to fill available space */
+    margin: 5px; /* Uniform spacing around columns */
+}
+
+/* Styling for specific elements */
+p {
+    color: #212529;
+    padding: 5px;
+    margin: 0;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+}
+
+img {
+    max-width: 100%; /* Ensures image does not overflow its container */
+    height: auto;
+    display: block; /* Removes bottom margin/gap */
+    border: 1px solid #ced4da;
+}
+
+video {
+    width: 100%; /* Makes video responsive */
+    height: auto;
+    border: 1px solid #ced4da;
+}
+
+/* Highlight elements when they are being dragged */
+.draggable:active {
+    opacity: 1;
+}
+
+/* Styling for properties panel */
+.properties {
+    background-color: #e2e3e5;
+    padding: 10px;
+    font-size: 0.9em;
+    color: #495057;
+}
+
+/* Hover effects for better user interaction */
+.draggable:hover, .row:hover, .col:hover {
+    border: 2px dashed hsla(211, 100%, 50%, 0.397) ;
+     
+   
+}
+
+/* Active element highlighting */
+.active-element {
+    
+    border: 2px solid #007bff ; /* Bootstrap primary color */
+}
+.delete-icon {
+    position: absolute;
+    top: -10px;  
+    right: -10px; 
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    color: #007bff; 
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    font-size: 18px;
+}
+
+.delete-icon:hover {
+    background-color: #f8d7da;  
+    color: #721c24;  
+    border-color: #f5c6cb;
+}
+.draggable.dragging {
+    opacity: 0.5;
+}
+
+.row, .col, .p-2, .img-fluid {
+    cursor: move; /* Indicates that elements can be moved */
+    user-select: none; /* Prevents text selection while dragging */
+}
+
+.toolbox, .board, .properties {
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.toolbox {
+    width: 20%;
+    height: calc(100vh - 56px); /* Subtract navbar height */
+    overflow-y: auto;
+    position: fixed;
+    top: 56px; /* Height of the navbar */
+    left: 0;
+}
+
+.board {
+    position: fixed;
+    left: 20%;
+    right: 25%;
+    top: 56px; /* Adjust for navbar */
+    bottom: 0;
+    overflow-y: auto;
+    background-color: #f8f9fa;
+    padding: 20px;
+}
+
+.properties {
+    width: 25%;
+    height: calc(100vh - 56px); /* Adjust for navbar */
+    overflow-y: auto;
+    position: fixed;
+    right: 0;
+    top: 56px; /* Adjust for navbar */
+    background-color: #e2e3e5;
+    padding: 10px;
+    font-size: 0.9em;
+    color: #495057;
+}
+
+.draggable {
+    width: 100%;
+    cursor: grab;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.draggable:hover, .row:hover, .col:hover {
+   border: 2px dashed color(srgb 0 0 blue);
+}
+
+.delete-icon {
+    position:absolute;
+    top: -10px;
+    right: -10px;
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    color: #007bff;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    font-size: 18px;
+}
+
+.delete-icon:hover {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+}
+
+.context-menu {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    cursor: pointer;
+  }
+  
+  .menu-item:hover {
+    background-color: #f0f0f0;
+  }
+  

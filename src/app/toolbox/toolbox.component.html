@@ -1,0 +1,28 @@
+<div id="toolbox" class="toolbox bg-light">
+  <div id="blocks" class="toolbox-section">
+    <button class="btn btn-outline-primary w-100 mb-2 draggable" 
+            draggable="true" 
+            [attr.data-type]="'row'" 
+            (dragstart)="dragStart($event)">Row</button>
+        
+    <button class="btn btn-outline-primary w-100 mb-2 draggable" 
+            draggable="true" 
+            [attr.data-type]="'column'" 
+            (dragstart)="dragStart($event)">Column</button>
+
+    <button class="btn btn-outline-primary w-100 mb-2 draggable" 
+            draggable="true" 
+            [attr.data-type]="'text'" 
+            (dragstart)="dragStart($event)">Text</button>
+
+    <button class="btn btn-outline-primary w-100 mb-2 draggable" 
+            draggable="true" 
+            [attr.data-type]="'image'" 
+            (dragstart)="dragStart($event)">Image</button>
+    <button class="btn btn-outline-primary w-100 mb-2 draggable" 
+            draggable="true" 
+            [attr.data-type]="'video'" 
+            (dragstart)="dragStart($event)">Video</button>
+  </div>
+  <div id="elements" class="toolbox-section"></div>
+</div>

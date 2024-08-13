@@ -1,0 +1,13 @@
+.properties {
+    width: 25%;
+    height: calc(100vh - 56px);
+    overflow-y: auto;
+    position: fixed;
+    right: 0;
+    top: 56px;
+    background-color: #e2e3e5;
+    padding: 10px;
+    font-size: 0.9em;
+    color: #495057;
+  }
+  

@@ -1,0 +1,9 @@
+.toolbox {
+    width: 20%;
+    height: calc(100vh - 56px);
+    overflow-y: auto;
+    position: fixed;
+    top: 56px;
+    left: 0;
+  }
+  
