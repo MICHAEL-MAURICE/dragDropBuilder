@@ -79,6 +79,7 @@ export class AppComponent implements AfterViewInit, OnInit {
     if (this.propertiesPanel && this.propertiesPanel.nativeElement) {
       const target = event.target as HTMLElement;
       const details = `Properties for ${target.tagName} ${target.id}`;
+      
       const element = document.getElementById(`${target.id}`);
       if (element) {
         this.diaplayPropertyForElement(element.getAttribute("name"), target.id);
@@ -90,15 +91,22 @@ export class AppComponent implements AfterViewInit, OnInit {
 
   diaplayPropertyForElement(elementName: any, elementId: string) {
     const details = `Properties for ${elementName} ${elementId}`;
-    this.propertiesPanel.nativeElement.innerHTML = details;
-    if (elementName === 'text') {
-      const elementText = document.getElementById('textstyleId');
-      if (elementText) {
-        elementText.style.display = elementText.style.display === 'block' ? 'none' : 'block';
-      }
+   // this.propertiesPanel.nativeElement.innerHTML = details;
+   if (elementName === 'text') {
+    const elementText = document.getElementById(elementId);
+    const inputElement = document.getElementById("exampleInputEmail1") as HTMLInputElement;
+
+    if (elementText && inputElement) {
+      // Initial setting of text
+      elementText.innerText = inputElement.value || '';
+
+      // Add event listener to update text on input change
+      inputElement.addEventListener('input', () => {
+        elementText.innerText = inputElement.value;
+      });
     }
   }
-
+}
   dragStart(event: DragEvent): void {
     const target = event.target as HTMLElement;
 target.setAttribute("height","100px");
