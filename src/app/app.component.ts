@@ -76,52 +76,103 @@ export class AppComponent implements AfterViewInit, OnInit {
   }
 
   displayProperties(event: Event): void {
+
+    
+    console.log("event");
     if (this.propertiesPanel && this.propertiesPanel.nativeElement) {
       const target = event.target as HTMLElement;
       const details = `Properties for ${target.tagName} ${target.id}`;
+    console.log(details)
       
       const element = document.getElementById(`${target.id}`);
       if (element) {
-        this.diaplayPropertyForElement(element.getAttribute("name"), target.id);
+        this.diaplayPropertyForElement(element.getAttribute('name'), element.getAttribute('id'));
       }
     } else {
       console.error('Properties panel is not available.');
     }
   }
 
-  diaplayPropertyForElement(elementName: any, elementId: string) {
+  diaplayPropertyForElement(elementName: any, elementId: any) {
+    console.log(elementName);
     const details = `Properties for ${elementName} ${elementId}`;
    // this.propertiesPanel.nativeElement.innerHTML = details;
-   if (elementName === 'text') {
-    const elementText = document.getElementById(elementId);
-    const inputElement = document.getElementById("exampleInputEmail1") as HTMLInputElement;
+  
+   let pTextInput = document.getElementById("textContent") as HTMLInputElement;
+   pTextInput.focus();
+   //elementName==='h1'||elementName==='h2'||elementName==='h3'||elementName==='h4'||elementName==='h5'||elementName==='h6'
+ 
+   
+     this. changetextandheaders(elementId);
+  
+}
 
-    if (elementText && inputElement) {
-      // Initial setting of text
-      elementText.innerText = inputElement.value || '';
 
-      // Add event listener to update text on input change
-      inputElement.addEventListener('input', () => {
-        elementText.innerText = inputElement.value;
-      });
-    }
+changetextandheaders(elementId:any){
+ 
+  let lastClickedElement: HTMLElement;
+
+  document.addEventListener('click', (event) => {
+    const target = event.target as HTMLElement;
+    lastClickedElement = target;
+    // Perform actions based on the last clicked element
+    console.log(lastClickedElement);
+  });
+  const elementText = document.getElementById(String(elementId))as HTMLElement;
+  
+  let pTextInput = document.getElementById("textContent") as HTMLInputElement;
+  let PTextSize = document.getElementById("TextSize") as HTMLInputElement;
+  let PTextColor = document.getElementById("text-color") as HTMLInputElement;
+  let PTextfamily = document.getElementById("fontSelector") as HTMLInputElement;
+  pTextInput.value="";
+  if (elementText ) {
+    // Initial setting of text
+    //elementText.innerText = pTextInput.value || '';
+
+    // Add event listener to update text on input change
+    pTextInput.addEventListener('input', () => {
+      elementText.innerText = pTextInput.value;
+    });
+
+    PTextSize.addEventListener('input', () => {
+      console.log( PTextSize.value)
+      elementText.style.fontSize = PTextSize.value +'px' ;
+    });
+    PTextColor.addEventListener('input', () => {
+      console.log( PTextColor.value)
+      elementText.style.color = PTextColor.value  ;
+    });
+
+    PTextfamily.addEventListener('input', () => {
+      console.log( PTextfamily.value)
+      elementText.style.fontFamily = PTextfamily.value  ;
+    });
+
   }
 }
+
+
+
   dragStart(event: DragEvent): void {
     const target = event.target as HTMLElement;
 target.setAttribute("height","100px");
-console.log(this.board.nativeElement.innerHTML)
+
 
     event.dataTransfer?.setData('type', target.getAttribute('data-type') || '');
   }
 
   dragEnter(event: DragEvent): void {
-console.log(this.board.nativeElement.innerHTML)
-const elements = this.board.nativeElement.querySelectorAll('.row'); // Select all elements with the class 'row'
 
+const elements = this.board.nativeElement.querySelectorAll('.row'); // Select all elements with the class 'row'
+const column = this.board.nativeElement.querySelectorAll('.col');
 elements.forEach((element: HTMLElement) => {
   if(element.children.length==0)
   this.renderer.setStyle(element, 'height', '100px');
+});
+
+column.forEach((element: HTMLElement) => {
+  if(element.children.length==0)
+  this.renderer.setStyle(element, 'height', '50px');
 });
     event.preventDefault();
   }
@@ -129,7 +180,11 @@ elements.forEach((element: HTMLElement) => {
   dragOver(event: DragEvent): void {
     console.log(this.board.nativeElement.innerHTML)
     const elements = this.board.nativeElement.querySelectorAll('.row'); // Select all elements with the class 'row'
-
+    const column = this.board.nativeElement.querySelectorAll('.col');
+    column.forEach((element: HTMLElement) => {
+      if(element.children.length==0)
+      this.renderer.setStyle(element, 'height', '50px');
+    });
     elements.forEach((element: HTMLElement) => {
       if(element.children.length==0)
       this.renderer.setStyle(element, 'height', '100px');
@@ -141,6 +196,12 @@ elements.forEach((element: HTMLElement) => {
 
     const elements = this.board.nativeElement.querySelectorAll('.row'); // Select all elements with the class 'row'
 
+
+    const column = this.board.nativeElement.querySelectorAll('.col');
+    column.forEach((element: HTMLElement) => {
+      if(element.children.length==0)
+      this.renderer.removeStyle(element, 'height');
+    });
     elements.forEach((element: HTMLElement) => {
       this.renderer.removeStyle(element, 'height');
     });
@@ -260,7 +321,7 @@ case 'text':
     this.renderer.setAttribute(element, 'name', 'text');
     const textId = this.generateUniqueId();
     this.renderer.setAttribute(element, 'id', textId);
-    this.renderer.listen(element, 'click', (event: MouseEvent) => this.displayProperties(event));
+    this.renderer.listen(element, 'click', (event: any) => this.displayProperties(event));
     this.renderer.listen(element, 'click', (event: MouseEvent) => this.deleteElementById(event));
     this.renderer.listen(element, 'dragstart', (event: DragEvent) => this.dragStart(event));
     break;
@@ -305,10 +366,10 @@ case 'button':
     break;
 case 'h1':
     element = this.renderer.createElement('h1');
-    this.renderer.setProperty(element, 'textContent', 'Heading Text');
+    this.renderer.setProperty(element, 'textContent', 'h1');
     this.renderer.setAttribute(element, 'draggable', 'true');
-    this.renderer.setAttribute(element, 'data-type', 'heading');
-    this.renderer.setAttribute(element, 'name', 'heading');
+    this.renderer.setAttribute(element, 'data-type', 'h1');
+    this.renderer.setAttribute(element, 'name', 'h1');
     const h1Id = this.generateUniqueId();
     this.renderer.setAttribute(element, 'id', h1Id);
     this.renderer.listen(element, 'click', (event: MouseEvent) => this.displayProperties(event));
@@ -318,10 +379,10 @@ case 'h1':
 
     case 'h2':
       element = this.renderer.createElement('h2');
-      this.renderer.setProperty(element, 'textContent', 'Heading Text');
+      this.renderer.setProperty(element, 'textContent', 'h2');
       this.renderer.setAttribute(element, 'draggable', 'true');
-      this.renderer.setAttribute(element, 'data-type', 'heading');
-      this.renderer.setAttribute(element, 'name', 'heading');
+      this.renderer.setAttribute(element, 'data-type', 'h2');
+      this.renderer.setAttribute(element, 'name', 'h2');
       const h2Id = this.generateUniqueId();
       this.renderer.setAttribute(element, 'id', h2Id);
       this.renderer.listen(element, 'click', (event: MouseEvent) => this.displayProperties(event));
@@ -331,10 +392,10 @@ case 'h1':
 
       case 'h3':
         element = this.renderer.createElement('h3');
-        this.renderer.setProperty(element, 'textContent', 'Heading Text');
+        this.renderer.setProperty(element, 'textContent', 'h3');
         this.renderer.setAttribute(element, 'draggable', 'true');
-        this.renderer.setAttribute(element, 'data-type', 'heading');
-        this.renderer.setAttribute(element, 'name', 'heading');
+        this.renderer.setAttribute(element, 'data-type', 'h3');
+        this.renderer.setAttribute(element, 'name', 'h3');
         const h3Id = this.generateUniqueId();
         this.renderer.setAttribute(element, 'id', h3Id);
         this.renderer.listen(element, 'click', (event: MouseEvent) => this.displayProperties(event));
@@ -343,10 +404,10 @@ case 'h1':
         break;
         case 'h4':
           element = this.renderer.createElement('h4');
-          this.renderer.setProperty(element, 'textContent', 'Heading Text');
+          this.renderer.setProperty(element, 'textContent', 'h4');
           this.renderer.setAttribute(element, 'draggable', 'true');
-          this.renderer.setAttribute(element, 'data-type', 'heading');
-          this.renderer.setAttribute(element, 'name', 'heading');
+          this.renderer.setAttribute(element, 'data-type', 'h4');
+          this.renderer.setAttribute(element, 'name', 'h4');
           const h4Id = this.generateUniqueId();
           this.renderer.setAttribute(element, 'id', h4Id);
           this.renderer.listen(element, 'click', (event: MouseEvent) => this.displayProperties(event));
@@ -355,10 +416,10 @@ case 'h1':
           break;
           case 'h5':
         element = this.renderer.createElement('h5');
-        this.renderer.setProperty(element, 'textContent', 'Heading Text');
+        this.renderer.setProperty(element, 'textContent', 'h5');
         this.renderer.setAttribute(element, 'draggable', 'true');
-        this.renderer.setAttribute(element, 'data-type', 'heading');
-        this.renderer.setAttribute(element, 'name', 'heading');
+        this.renderer.setAttribute(element, 'data-type', 'h5');
+        this.renderer.setAttribute(element, 'name', 'h5');
         const h5Id = this.generateUniqueId();
         this.renderer.setAttribute(element, 'id', h5Id);
         this.renderer.listen(element, 'click', (event: MouseEvent) => this.displayProperties(event));
@@ -367,10 +428,10 @@ case 'h1':
         break;
         case 'h6':
         element = this.renderer.createElement('h6');
-        this.renderer.setProperty(element, 'textContent', 'Heading Text');
+        this.renderer.setProperty(element, 'textContent', 'h6');
         this.renderer.setAttribute(element, 'draggable', 'true');
-        this.renderer.setAttribute(element, 'data-type', 'heading');
-        this.renderer.setAttribute(element, 'name', 'heading');
+        this.renderer.setAttribute(element, 'data-type', 'h6');
+        this.renderer.setAttribute(element, 'name', 'h6');
         const h6Id = this.generateUniqueId();
         this.renderer.setAttribute(element, 'id', h6Id);
         this.renderer.listen(element, 'click', (event: MouseEvent) => this.displayProperties(event));

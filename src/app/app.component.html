@@ -118,20 +118,44 @@
     <div id="properties" #propertiesPanel class="properties"    >
       <form  id="textstyleId" class="">
         <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Email address</label>
-          <textarea type="text" class="form-control" value=""   id="exampleInputEmail1" aria-describedby="emailHelp" onchange=""  >
+          <label for="textContent" class="form-label">Text Content </label>
+          <textarea type="text" class="form-control" placeholder="Write your content Here "   id="textContent"   >
           </textarea>
-          <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+          
         </div>
         <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1">
+          <label for="TextSize" class="form-label">Text Size</label>
+          <input type="number" value="20px"  class="form-control" id="TextSize">
         </div>
-        <div class="mb-3 form-check">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-          <label class="form-check-label" for="exampleCheck1">Check me out</label>
+        <div class="mb-3">
+          <label for="text-color">Change Text Color</label> : 
+          <input type="color" id="text-color" class="color-picker">
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+       
+        <div class="mb-3">
+          <label for="fontSelector"> Font Family:</label>
+                        <select id="fontSelector" >
+                            <option value="Arial">Arial</option>
+                            <option value="Verdana">Verdana</option>
+                            <option value="Tahoma">Tahoma</option>
+                            <option value="Times New Roman">Times New Roman</option>
+                            <option value="Georgia">Georgia</option>
+                            <option value="Courier New">Courier New</option>
+                            <option value="Lucida Console">Lucida Console</option>
+                            <option value="Palatino Linotype">Palatino Linotype</option>
+                            <option value="Trebuchet MS">Trebuchet MS</option>
+                            <option value="Century Gothic">Century Gothic</option>
+                            <option value="Garamond">Garamond</option>
+                            <option value="Book Antiqua">Book Antiqua</option>
+                            <option value="Franklin Gothic Medium">Franklin Gothic Medium</option>
+                            <option value="Impact">Impact</option>
+                            <option value="Comic Sans MS">Comic Sans MS</option>
+                            
+                        </select>
+        </div>
+
+
+
       </form>
     </div>
   </div>
