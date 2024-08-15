@@ -16,6 +16,19 @@ export class AppComponent implements AfterViewInit, OnInit {
 
   ngOnInit() {
     this.showBoard = true;
+
+    const textProps = document.getElementById("FormForText");
+
+    const spacer= document.getElementById("spacerForm");
+    const imageform= document.getElementById("imageForm");
+        
+   
+  imageform!.style.display='none';
+        textProps!.style.display = 'none';
+      
+    
+        spacer!.style.display = 'none';
+      
   }
 
 
@@ -45,16 +58,18 @@ export class AppComponent implements AfterViewInit, OnInit {
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <style>
+       
             body, html {
                 height: 100%;
                 margin: 0;
                 font-family: Arial, sans-serif;
+
             }
             .toolbox, .board, .properties, .row, .col, .p-2, .img-fluid {
                 border: none !important;
             }
             .toolbox, .board, .properties {
-                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                
                 padding: 10px;
             }
             .board {
@@ -83,8 +98,9 @@ export class AppComponent implements AfterViewInit, OnInit {
       const target = event.target as HTMLElement;
       const details = `Properties for ${target.tagName} ${target.id}`;
     console.log(details)
-      
+    
       const element = document.getElementById(`${target.id}`);
+
       if (element) {
         this.diaplayPropertyForElement(element.getAttribute('name'), element.getAttribute('id'));
       }
@@ -98,59 +114,144 @@ export class AppComponent implements AfterViewInit, OnInit {
     const details = `Properties for ${elementName} ${elementId}`;
    // this.propertiesPanel.nativeElement.innerHTML = details;
   
-   let pTextInput = document.getElementById("textContent") as HTMLInputElement;
-   pTextInput.focus();
-   //elementName==='h1'||elementName==='h2'||elementName==='h3'||elementName==='h4'||elementName==='h5'||elementName==='h6'
- 
+  
+   if(elementName==='h1'||elementName==='h2'||elementName==='h3'||elementName==='h4'||elementName==='h5'||elementName==='h6' || elementName==='text')  
+     {
+      const elementType = document.getElementById("FormForText");
+      const spacer= document.getElementById("spacerForm");
+     
+        elementType!.style.display = 'block';
+      
    
-     this. changetextandheaders(elementId);
-  
+        spacer!.style.display = 'none';
+      
+      
+      
+      this. changeTextAndHeaders(elementId);
+     }
+
+     else if(elementName==='spacer')  
+      {
+        const spacer= document.getElementById("spacerForm");
+        const elementType = document.getElementById("FormForText");
+        elementType!.style.display = 'none';
+          spacer!.style.display = 'block';
+        
+       
+       this. changeWidthandheightforsoacer(elementId);
+      }
+      else if(elementName==='image')  
+        {
+          const spacer= document.getElementById("spacerForm");
+          const elementType = document.getElementById("FormForText");
+   const imageform= document.getElementById("imageForm");
+        
+            elementType!.style.display = 'none';
+            spacer!.style.display = 'none';
+          imageform!.style.display='block';
+         
+         this. changeWidthandheightforsoacer(elementId);
+        }
+
+
+
 }
 
 
-changetextandheaders(elementId:any){
- 
-  let lastClickedElement: HTMLElement;
+changeTextAndHeaders(elementId: any) {
+  const elementText = document.getElementById(String(elementId)) as HTMLElement;
 
-  document.addEventListener('click', (event) => {
-    const target = event.target as HTMLElement;
-    lastClickedElement = target;
-    // Perform actions based on the last clicked element
-    console.log(lastClickedElement);
-  });
-  const elementText = document.getElementById(String(elementId))as HTMLElement;
-  
   let pTextInput = document.getElementById("textContent") as HTMLInputElement;
-  let PTextSize = document.getElementById("TextSize") as HTMLInputElement;
-  let PTextColor = document.getElementById("text-color") as HTMLInputElement;
-  let PTextfamily = document.getElementById("fontSelector") as HTMLInputElement;
-  pTextInput.value="";
-  if (elementText ) {
-    // Initial setting of text
-    //elementText.innerText = pTextInput.value || '';
+  let pTextSize = document.getElementById("TextSize") as HTMLInputElement;
+  let pTextColor = document.getElementById("text-color") as HTMLInputElement;
+  let pTextFamily = document.getElementById("fontSelector") as HTMLInputElement;
 
-    // Add event listener to update text on input change
-    pTextInput.addEventListener('input', () => {
-      elementText.innerText = pTextInput.value;
-    });
+  // Update the input fields with the current values of the clicked element
+  pTextInput.value = elementText.innerText;
+  pTextSize.value = parseInt(window.getComputedStyle(elementText).fontSize, 10).toString();
+  pTextColor.value = window.getComputedStyle(elementText).color;
+  pTextFamily.value = window.getComputedStyle(elementText).fontFamily;
 
-    PTextSize.addEventListener('input', () => {
-      console.log( PTextSize.value)
-      elementText.style.fontSize = PTextSize.value +'px' ;
-    });
-    PTextColor.addEventListener('input', () => {
-      console.log( PTextColor.value)
-      elementText.style.color = PTextColor.value  ;
-    });
+  // Clear previous input event listeners to avoid conflicts
+  pTextInput.oninput = null;
+  pTextSize.oninput = null;
+  pTextColor.oninput = null;
+  pTextFamily.oninput = null;
 
-    PTextfamily.addEventListener('input', () => {
-      console.log( PTextfamily.value)
-      elementText.style.fontFamily = PTextfamily.value  ;
-    });
+  // Add event listeners to update the specific element on input change
+  pTextInput.oninput = () => {
+    elementText.innerText = pTextInput.value;
+  };
 
-  }
+  pTextSize.oninput = () => {
+    elementText.style.fontSize = pTextSize.value + 'px';
+  };
+
+  pTextColor.oninput = () => {
+    elementText.style.color = pTextColor.value;
+  };
+
+  pTextFamily.oninput = () => {
+    elementText.style.fontFamily = pTextFamily.value;
+  };
 }
 
+changeWidthandheightforsoacer(elementid: string) {
+  console.log("Element ID:", elementid);
+
+  // Get the width and height input elements
+  var widthInput = document.getElementById('width') as HTMLInputElement;
+  var heightInput = document.getElementById('height') as HTMLInputElement;
+
+  // Get the spacer element by ID
+  var spacer = document.getElementById(elementid)as HTMLInputElement;
+
+  // Remove any existing event listeners by replacing them with null
+  widthInput.value=  window.getComputedStyle(spacer).width;
+  heightInput.value= window.getComputedStyle(spacer).height;
+
+  // Add event listeners to update the specific element on input change
+  widthInput.oninput = () => {
+      const width = widthInput.value; // Get the value from the width input
+      spacer!.style.width =widthInput.value + 'px';
+  };
+  heightInput.oninput= () => {
+      const height = heightInput.value; // Get the value from the height input
+      spacer!.style.height = heightInput.value+ 'px';
+  };
+}
+
+
+changeStyleforImage(elementid: string) {
+  console.log("Element ID:", elementid);
+
+  // Get the width and height input elements
+  var widthInput = document.getElementById('Imagewidth') as HTMLInputElement;
+  var heightInput = document.getElementById('Imageheight') as HTMLInputElement;
+  var imagesrc = document.getElementById('Imagesrc') as HTMLInputElement;
+  // Get the spacer element by ID
+  var Image = document.getElementById(elementid)as HTMLInputElement;
+
+  // Remove any existing event listeners by replacing them with null
+  widthInput.value=  window.getComputedStyle(Image).width;
+  heightInput.value= window.getComputedStyle(Image).height;
+  
+  // Add event listeners to update the specific element on input change
+  widthInput.oninput = () => {
+      const width = widthInput.value; // Get the value from the width input
+      Image!.style.width =widthInput.value + 'px';
+  };
+  heightInput.oninput= () => {
+      const height = heightInput.value; // Get the value from the height input
+      Image!.style.height = heightInput.value+ 'px';
+  };
+
+  imagesrc.oninput= () => {
+     // Get the value from the height input
+    Image!.src = imagesrc.value;
+};
+
+}
 
 
   dragStart(event: DragEvent): void {
@@ -314,7 +415,7 @@ case 'column':
     this.renderer.listen(element, 'dragstart', (event: DragEvent) => this.dragStart(event));
     break;
 case 'text':
-    element = this.renderer.createElement('p');
+    element = this.renderer.createElement('span');
     this.renderer.setProperty(element, 'textContent', 'Sample text...');
     this.renderer.setAttribute(element, 'draggable', 'true');
     this.renderer.setAttribute(element, 'data-type', 'text');
@@ -327,7 +428,7 @@ case 'text':
     break;
 case 'image':
     element = this.renderer.createElement('img');
-    this.renderer.setProperty(element, 'src', 'https://via.placeholder.com/');
+    this.renderer.setProperty(element, 'src', 'https://via.placeholder.com/150');
     this.renderer.setAttribute(element, 'draggable', 'true');
     this.renderer.setAttribute(element, 'data-type', 'image');
     this.renderer.setAttribute(element, 'name', 'image');
@@ -446,6 +547,13 @@ case 'h1':
       this.renderer.setAttribute(element, 'draggable', 'true');
       this.renderer.setAttribute(element, 'data-type', 'spacer');
       this.renderer.setAttribute(element, 'name', 'spacer');
+      this.renderer.listen(element, 'mouseover', () => {
+        this.renderer.setStyle(element, 'border', '1px dotted blue');
+      });
+      
+      this.renderer.listen(element, 'mouseout', () => {
+        this.renderer.removeStyle(element, 'border');
+      });
       const spacerId = this.generateUniqueId();
       this.renderer.setAttribute(element, 'id', spacerId);
       this.renderer.listen(element, 'click', (event: MouseEvent) => this.displayProperties(event));
