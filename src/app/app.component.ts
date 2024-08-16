@@ -387,8 +387,20 @@ var buttonTextColor=document.getElementById('button-Text-color')as HTMLInputElem
  // widthInput.value=  window.getComputedStyle(buttonText).width;
 
   ActionButton.value="";
+  buttoncolor.value ="";
+  buttonText.value = "";
+  buttonTextColor.value = "";
+  //pTextFamily.value = window.getComputedStyle(elementText).fontFamily;
   // Add event listeners to update the specific element on input change
  
+
+  buttoncolor.oninput = null;
+  ActionButton.oninput = null;
+  buttonText.oninput = null;
+ 
+  buttonTextColor.oninput = null;
+
+
   buttonText.oninput= () => {
        // Get the value from the height input
       button!.innerText = buttonText.value;
