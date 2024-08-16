@@ -21,12 +21,12 @@ export class AppComponent implements AfterViewInit, OnInit {
 
     const spacer= document.getElementById("spacerForm");
     const imageform= document.getElementById("imageForm");
-        
-   
+    const buttonForm= document.getElementById("buttonForm");
+   const boardform= document.getElementById("BoardForm");
   imageform!.style.display='none';
         textProps!.style.display = 'none';
-      
-    
+      buttonForm!.style.display='none';
+    boardform!.style.display='none';
         spacer!.style.display = 'none';
       
   }
@@ -48,7 +48,9 @@ export class AppComponent implements AfterViewInit, OnInit {
   }
 
   saveRenderedHTML(): void {
+    this.activateAllButtons();
     const boardHTML = this.board.nativeElement.outerHTML;
+    const boardColor=this.board.nativeElement.outerHTML.backgroundColor;
     const fullHTML = `<!DOCTYPE html>
     <html lang="en">
     <head>
@@ -77,7 +79,7 @@ export class AppComponent implements AfterViewInit, OnInit {
             }
         </style>
     </head>
-    <body>
+  <body style="background-color: ${boardColor}">
         ${boardHTML}
     </body>
     </html>`;
@@ -88,6 +90,9 @@ export class AppComponent implements AfterViewInit, OnInit {
     this.renderer.appendChild(document.body, a);
     a.click();
     this.renderer.removeChild(document.body, a);
+
+
+    this.UnactiveAllButtons();
   }
 
   displayProperties(event: Event): void {
@@ -119,9 +124,16 @@ export class AppComponent implements AfterViewInit, OnInit {
      {
       const elementType = document.getElementById("FormForText");
       const spacer= document.getElementById("spacerForm");
-     
+      const imageform= document.getElementById("imageForm");
+      const buttonForm= document.getElementById("buttonForm");
+   
+      const boardform= document.getElementById("BoardForm");
+      boardform!.style.display='none';
+      buttonForm!.style.display='none';
+    
+   
         elementType!.style.display = 'block';
-      
+        imageform!.style.display='none';
    
         spacer!.style.display = 'none';
       
@@ -134,8 +146,19 @@ export class AppComponent implements AfterViewInit, OnInit {
       {
         const spacer= document.getElementById("spacerForm");
         const elementType = document.getElementById("FormForText");
+        const imageform= document.getElementById("imageForm");
+        const buttonForm= document.getElementById("buttonForm");
+   
+        const boardform= document.getElementById("BoardForm");
+        boardform!.style.display='none';
+      buttonForm!.style.display='none';
+   
         elementType!.style.display = 'none';
           spacer!.style.display = 'block';
+         
+        
+       
+          imageform!.style.display='none';
         
        
        this. changeWidthandheightforsoacer(elementId);
@@ -145,12 +168,76 @@ export class AppComponent implements AfterViewInit, OnInit {
           const spacer= document.getElementById("spacerForm");
           const elementType = document.getElementById("FormForText");
    const imageform= document.getElementById("imageForm");
+   const buttonForm= document.getElementById("buttonForm");
+   const boardform= document.getElementById("BoardForm");
+   boardform!.style.display='none';
+
+      buttonForm!.style.display='none';
+    
+        
         
             elementType!.style.display = 'none';
             spacer!.style.display = 'none';
           imageform!.style.display='block';
          
-         this. changeWidthandheightforsoacer(elementId);
+         this. changeStyleforImage(elementId);
+        }
+
+        else if(elementName==='video'){
+          console.log("hereeeeeeeeeeeeee");
+          const spacer= document.getElementById("spacerForm");
+          const elementType = document.getElementById("FormForText");
+   const imageform= document.getElementById("imageForm");
+   const buttonForm= document.getElementById("buttonForm");
+   const boardform= document.getElementById("BoardForm");
+          boardform!.style.display='none';
+
+       buttonForm!.style.display='none';
+ 
+
+
+
+            elementType!.style.display = 'none';
+            spacer!.style.display = 'none';
+          imageform!.style.display='block';
+         
+         this. changeStyleforVideo(elementId);
+        }
+
+
+        else if(elementName==='button'){
+
+          const spacer= document.getElementById("spacerForm");
+          const elementType = document.getElementById("FormForText");
+   const imageform= document.getElementById("imageForm");
+   const buttonForm= document.getElementById("buttonForm");
+   const boardform= document.getElementById("BoardForm");
+   boardform!.style.display='none';
+           buttonForm!.style.display='block';
+            elementType!.style.display = 'none';
+            spacer!.style.display = 'none';
+          imageform!.style.display='none';
+          this.changeStyleforbutton(elementId)
+
+
+        }
+
+        else if(elementName==='Board'){
+
+          const boardform= document.getElementById("BoardForm");
+          boardform!.style.display='block';
+          const spacer= document.getElementById("spacerForm");
+          const elementType = document.getElementById("FormForText");
+   const imageform= document.getElementById("imageForm");
+   const buttonForm= document.getElementById("buttonForm");
+
+           buttonForm!.style.display='nonw';
+            elementType!.style.display = 'none';
+            spacer!.style.display = 'none';
+          imageform!.style.display='none';
+          
+          this.changeStyleforBoard(elementId);
+
         }
 
 
@@ -252,6 +339,109 @@ changeStyleforImage(elementid: string) {
 };
 
 }
+
+changeStyleforVideo(elementid: string) {
+  console.log("Element ID:", elementid);
+
+  // Get the width and height input elements
+  var widthInput = document.getElementById('Imagewidth') as HTMLInputElement;
+  var heightInput = document.getElementById('Imageheight') as HTMLInputElement;
+  var imagesrc = document.getElementById('Imagesrc') as HTMLInputElement;
+  // Get the spacer element by ID
+  var video = document.getElementById(elementid)as HTMLInputElement;
+
+  // Remove any existing event listeners by replacing them with null
+  widthInput.value=  window.getComputedStyle(video).width;
+  heightInput.value= window.getComputedStyle(video).height;
+  imagesrc.src="";
+  // Add event listeners to update the specific element on input change
+  widthInput.oninput = () => {
+      const width = widthInput.value; // Get the value from the width input
+      video!.style.width =widthInput.value + 'px';
+  };
+  heightInput.oninput= () => {
+      const height = heightInput.value; // Get the value from the height input
+      video!.style.height = heightInput.value+ 'px';
+  };
+
+  imagesrc.oninput= () => {
+     // Get the value from the height input
+     video.src = imagesrc.value;
+};
+
+}
+
+
+changeStyleforbutton(elementid: string) {
+  console.log("Element ID:", elementid);
+
+  // Get the width and height input elements
+  var widthInput = document.getElementById('TextSize') as HTMLInputElement;
+  var buttoncolor = document.getElementById('button-color') as HTMLInputElement;
+  var ActionButton = document.getElementById('ActionButton') as HTMLInputElement;
+  var buttonText = document.getElementById('buttontext') as HTMLInputElement;
+  // Get the spacer element by ID
+  var button = document.getElementById(elementid)as HTMLInputElement;
+var buttonTextColor=document.getElementById('button-Text-color')as HTMLInputElement
+  // Remove any existing event listeners by replacing them with null
+ // widthInput.value=  window.getComputedStyle(buttonText).width;
+
+  ActionButton.value="";
+  // Add event listeners to update the specific element on input change
+ 
+  buttonText.oninput= () => {
+       // Get the value from the height input
+      button!.innerText = buttonText.value;
+  };
+
+  buttonTextColor.oninput=()=>{
+
+    button!.style.color=buttonTextColor.value;
+  }
+
+  buttoncolor.oninput= () => {
+     // Get the value from the height input
+     button.style.backgroundColor = buttoncolor.value;
+};
+
+
+
+ActionButton.oninput= () => {
+  // Get the value from the height input
+  button.setAttribute('href', ActionButton.value);
+};
+
+
+}
+
+
+
+changeStyleforBoard(elementid:string) {
+  console.log("Element ID:", elementid);
+
+  // Get the color input elements
+  var BoardColor1 = document.getElementById('BoardColor1')as HTMLInputElement;
+  var BoardColor2 = document.getElementById('BoardColor2')as HTMLInputElement;
+
+  // Get the board element by ID
+  var Board = document.getElementById(elementid)as HTMLInputElement;
+  //var body = document.body;
+  // Add event listeners to update the board's background gradient on input change
+  function updateGradient() {
+      const color1 = BoardColor1!.value;
+      const color2 = BoardColor2!.value;
+      Board!.style.background = `linear-gradient(to right, ${color1}, ${color2})`;
+     // body.style.background = `linear-gradient(to right, ${color1}, ${color2})`;
+  }
+
+  // Attach the event listeners to both color inputs
+  BoardColor1!.oninput = updateGradient;
+  BoardColor2!.oninput = updateGradient;
+}
+
+
+
+
 
 
   dragStart(event: DragEvent): void {
@@ -367,6 +557,36 @@ column.forEach((element: HTMLElement) => {
     return { before, reference: closestChild };
   }
 
+  activateAllButtons() {
+    // Get all elements with the data-type="button"
+    const buttons = document.querySelectorAll('[data-type="button"]');
+    
+    // Iterate over each button and activate it
+    buttons.forEach(button => {
+        button.setAttribute('data-active', 'true');
+       
+    });
+}
+
+
+UnactiveAllButtons(){
+
+
+
+  const buttons = document.querySelectorAll('[data-type="button"]');
+    
+  // Iterate over each button and activate it
+  buttons.forEach(button => {
+      button.setAttribute('data-active', 'false');
+     
+  });
+
+
+}
+
+
+
+
   insertElement(container: HTMLElement, element: HTMLElement, position: { before: boolean, reference: HTMLElement | null }): void {
     if (position.reference) {
       if (position.before) {
@@ -432,39 +652,78 @@ case 'image':
     this.renderer.setAttribute(element, 'draggable', 'true');
     this.renderer.setAttribute(element, 'data-type', 'image');
     this.renderer.setAttribute(element, 'name', 'image');
+    this.renderer.setStyle(element,'display','block');
     const imageId = this.generateUniqueId();
     this.renderer.setAttribute(element, 'id', imageId);
     this.renderer.listen(element, 'click', (event: MouseEvent) => this.displayProperties(event));
     this.renderer.listen(element, 'click', (event: MouseEvent) => this.deleteElementById(event));
     this.renderer.listen(element, 'dragstart', (event: DragEvent) => this.dragStart(event));
     break;
-case 'video':
-    element = this.renderer.createElement('video');
-    this.renderer.setProperty(element, 'src', 'https://www.w3schools.com/html/mov_bbb.mp4');
-    this.renderer.setProperty(element, 'controls', true);
-    this.renderer.setAttribute(element, 'data-type', 'video');
-    this.renderer.setAttribute(element, 'draggable', 'true');
-    this.renderer.setAttribute(element, 'name', 'video');
-    const videoId = this.generateUniqueId();
-    this.renderer.setAttribute(element, 'id', videoId);
-    this.renderer.listen(element, 'click', (event: MouseEvent) => this.displayProperties(event));
-    this.renderer.listen(element, 'click', (event: MouseEvent) => this.deleteElementById(event));
-    this.renderer.listen(element, 'dragstart', (event: DragEvent) => this.dragStart(event));
-    break;
-case 'button':
-    element = this.renderer.createElement('button');
-    this.renderer.addClass(element, 'btn');
-    this.renderer.addClass(element, 'btn-primary');
-    this.renderer.setProperty(element, 'textContent', 'Click Me');
-    this.renderer.setAttribute(element, 'draggable', 'true');
-    this.renderer.setAttribute(element, 'data-type', 'button');
-    this.renderer.setAttribute(element, 'name', 'button');
-    const buttonId = this.generateUniqueId();
-    this.renderer.setAttribute(element, 'id', buttonId);
-    this.renderer.listen(element, 'click', (event: MouseEvent) => this.displayProperties(event));
-    this.renderer.listen(element, 'click', (event: MouseEvent) => this.deleteElementById(event));
-    this.renderer.listen(element, 'dragstart', (event: DragEvent) => this.dragStart(event));
-    break;
+    case 'video':
+      const videoUrl = prompt("Please enter the video URL:");
+  
+      if (!videoUrl) {
+          alert("No video URL provided");
+          break;
+      }
+
+      if (videoUrl.includes('youtube.com') || videoUrl.includes('youtu.be')) {
+          // Handle YouTube video
+          element = this.renderer.createElement('iframe');
+          let youtubeEmbedUrl = this.convertYouTubeUrl(videoUrl);
+          this.renderer.setProperty(element, 'src', youtubeEmbedUrl);
+          this.renderer.setAttribute(element, 'frameborder', '0');
+          this.renderer.setAttribute(element, 'allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+          this.renderer.setAttribute(element, 'allowfullscreen', 'true');
+      } else {
+          // Handle direct video link
+          element = this.renderer.createElement('video');
+          this.renderer.setProperty(element, 'src', videoUrl);
+          this.renderer.setProperty(element, 'controls', true);
+      }
+  
+      this.renderer.setAttribute(element, 'data-type', 'video');
+      this.renderer.setAttribute(element, 'draggable', 'true');
+      this.renderer.setAttribute(element, 'name', 'video');
+      this.renderer.setStyle(element, 'display', 'block');
+      const videoId = this.generateUniqueId();
+      this.renderer.setAttribute(element, 'id', videoId);
+  
+      // Add event listeners
+      this.renderer.listen(element, 'click', (event: MouseEvent) => this.displayProperties(event));
+      this.renderer.listen(element, 'click', (event: MouseEvent) => this.deleteElementById(event));
+      this.renderer.listen(element, 'dragstart', (event: DragEvent) => this.dragStart(event));
+      break;
+      case 'button':
+        element = this.renderer.createElement('a');
+        this.renderer.addClass(element, 'btn');
+        this.renderer.addClass(element, 'btn-primary');
+        this.renderer.setProperty(element, 'textContent', 'Click Me');
+        this.renderer.setProperty(element, 'href', ""); // Empty by default
+        this.renderer.setAttribute(element, 'data-active', 'false'); // Inactive by default
+        this.renderer.setAttribute(element, 'draggable', 'true');
+        this.renderer.setAttribute(element, 'data-type', 'button');
+        this.renderer.setStyle(element, 'display', 'block');
+        this.renderer.setAttribute(element, 'name', 'button');
+        const buttonId = this.generateUniqueId();
+        this.renderer.setAttribute(element, 'id', buttonId);
+    
+        // Event listener to handle click event
+        this.renderer.listen(element, 'click', (event: MouseEvent) => {
+            if (element.getAttribute('data-active') === 'true') {
+                // If active, allow the href to be followed
+                window.location.href = element.getAttribute('href')!;
+            } else {
+                // If inactive, prevent the default action
+                event.preventDefault();
+               
+            }
+        });
+    
+        this.renderer.listen(element, 'click', (event: MouseEvent) => this.displayProperties(event));
+        this.renderer.listen(element, 'click', (event: MouseEvent) => this.deleteElementById(event));
+        this.renderer.listen(element, 'dragstart', (event: DragEvent) => this.dragStart(event));
+        break;
 case 'h1':
     element = this.renderer.createElement('h1');
     this.renderer.setProperty(element, 'textContent', 'h1');
@@ -563,6 +822,21 @@ case 'h1':
     }
     return element;
   }
+
+
+  convertYouTubeUrl(videoUrl: string): string {
+    let videoId = '';
+    if (videoUrl.includes('youtu.be')) {
+        videoId = videoUrl.split('youtu.be/')[1];
+    } else if (videoUrl.includes('youtube.com')) {
+        videoId = videoUrl.split('v=')[1];
+        const ampersandPosition = videoId.indexOf('&');
+        if (ampersandPosition !== -1) {
+            videoId = videoId.substring(0, ampersandPosition);
+        }
+    }
+    return 'https://www.youtube.com/embed/' + videoId;
+}
 
   findClosest(startingElement: HTMLElement, selector: string): HTMLElement | null {
     let currentEl: HTMLElement | null = startingElement;
